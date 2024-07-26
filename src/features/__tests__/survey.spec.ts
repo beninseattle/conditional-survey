@@ -15,16 +15,27 @@ describe('Malformed survey data should', () => {
   })
 })
 
-describe('Parsed survey data should', () => {
-  const surveyData = parseSurveyJson(surveyJson as unknown as SurveyJson)
+describe('Parsed survey should', () => {
+  const survey = parseSurveyJson(surveyJson as unknown as SurveyJson)
 
   test('have the correct number of questions', () => {
-    expect(surveyData.length).toBe(13)
+    expect(survey.questions.length).toBe(15)
   })
 
-  test('have the correct properties', () => {
-    expect(surveyData[0]).toHaveProperty('question_id')
-    expect(surveyData[0]).toHaveProperty('type')
-    expect(surveyData[0]).toHaveProperty('question_details')
+  test('have the correct question properties', () => {
+    expect(survey.questions[0]).toHaveProperty('question_id')
+    expect(survey.questions[0]).toHaveProperty('question_details')
+    expect(survey.questions[0]).toHaveProperty('page')
+    expect(survey.questions[0]).toHaveProperty('type')
+  })
+
+  test('have the correct number of dependencies', () => {
+    expect(survey.dependencies.length).toBe(10)
+  })
+
+  test('have the correct dependency properties', () => {
+    expect(survey.dependencies[0]).toHaveProperty('parent_question_id')
+    expect(survey.dependencies[0]).toHaveProperty('child_question_id')
+    expect(survey.dependencies[0]).toHaveProperty('value')
   })
 })

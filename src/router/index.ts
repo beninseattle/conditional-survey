@@ -14,6 +14,14 @@ const router = createRouter({
       }
     },
     {
+      path: '/survey',
+      name: 'survey',
+      component: () => import('@/views/SurveyView.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/signin',
       name: 'signin',
       component: () => import('@/views/auth/SignIn.vue')
@@ -32,6 +40,7 @@ const router = createRouter({
   ]
 });
 
+// Enforce authentication if needed
 router.beforeEach((to, from) => {
   const interfaceStore = useInterfaceStore();
   console.log('Testing isAuthenticated: ', interfaceStore.isLoggedIn);
